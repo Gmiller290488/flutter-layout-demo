@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/lake.jpg',
-              width: 600,
+              width: 601,
               height: 240,
               fit: BoxFit.cover,
             ),
