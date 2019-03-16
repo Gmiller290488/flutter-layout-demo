@@ -75,11 +75,11 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Welcome to Flutter layout demo"),
         ),
-        body: Column(
+        body: ListView(
           children: [
             Image.asset(
               'assets/images/lake.jpg',
-              width: 601,
+              width: 600,
               height: 240,
               fit: BoxFit.cover,
             ),
