@@ -5,7 +5,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
@@ -34,11 +33,22 @@ class MyApp extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text("41"),
+          FavouriteWidget(),
+        ],
+      ),
+    );
+
+    Color color = Theme
+        .of(context)
+        .primaryColor;
+
+    Widget buttonSection = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildButtonColumn(color, Icons.call, 'CALL'),
+          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+          _buildButtonColumn(color, Icons.share, 'SHARE'),
         ],
       ),
     );
@@ -53,19 +63,6 @@ class MyApp extends StatelessWidget {
             'lake, which warms to 20 degrees Celsius in the summer. Activities '
             'enjoyed here include rowing, and riding the summer toboggan run.',
         softWrap: true,
-      ),
-    );
-
-    Color color = Theme.of(context).primaryColor;
-
-    Widget buttonSection = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildButtonColumn(color, Icons.call, 'CALL'),
-          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
-        ],
       ),
     );
 
@@ -107,6 +104,50 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: color,
             ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FavouriteWidget extends StatefulWidget {
+  @override
+  _FavouriteWidgetState createState() => _FavouriteWidgetState();
+}
+
+class _FavouriteWidgetState extends State<FavouriteWidget> {
+  bool _isFavourited = true;
+  int _favouriteCount = 41;
+
+  void _toggleFavourite() {
+    setState(() {
+      if (_isFavourited) {
+        _favouriteCount -= 1;
+        _isFavourited = false;
+      } else {
+        _favouriteCount += 1;
+        _isFavourited = true;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: (_isFavourited ? Icon(Icons.star) : Icon(Icons.star_border)),
+            onPressed: _toggleFavourite,
+          ),
+        ),
+        SizedBox(
+          width: 18,
+          child: Container(
+            child: Text('$_favouriteCount'),
           ),
         ),
       ],
